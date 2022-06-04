@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
 import Create from './src/screens/Create';
@@ -7,11 +7,19 @@ import Home from './src/screens/Home';
 import Signin from './src/screens/Signin';
 import Signup from './src/screens/Signup';
 
+const AppTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#fff'
+  }
+}
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   const user = false
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={AppTheme}>
       <Stack.Navigator>
         {
           user ?
@@ -22,7 +30,7 @@ export default function App() {
             </>)
             :
             (<>
-              <Stack.Screen name="Signin" component={Signin} />
+              <Stack.Screen name="Signin" component={Signin} options={{headerShown: false}} />
               <Stack.Screen name="Signup" component={Signup} />             
             </>)
         }
