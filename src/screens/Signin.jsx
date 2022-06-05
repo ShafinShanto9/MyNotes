@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, Platform, SafeAreaView, StatusBar, Text, View } from 'react-native';
 import { Pressable } from 'react-native/';
 import Button from '../components/Button';
+import InputField from '../components/InputField';
 
-export default function Signin() {
+export default function Signin({navigation}) {
   return (
     <SafeAreaView style={{marginTop:Platform.OS === 'android' ? StatusBar.currentHeight:0, padding:10, flex:1}}>
       <Image
@@ -15,12 +16,10 @@ export default function Signin() {
       </Text>
 
       <View style={{paddingHorizontal:16, paddingVertical:25}}>
-        <TextInput
-          style={styles.input}
-          placeholder='Email Adress'
+        <InputField
+          placeholder='Email Address'
         />
-        <TextInput
-          style={styles.input}
+        <InputField
           placeholder='Password'
           secureTextEntry
         />
@@ -29,21 +28,12 @@ export default function Signin() {
       </View>
 
       <View style={{flex:1,justifyContent:'flex-end',alignItems:'center' }}>
-        <Pressable>
+        <Pressable onPress={()=>{navigation.navigate('Signup')}}>
           <Text>
-            Don't have an account ? <Text style={{color: 'purple'}}>Signup</Text>
+            Don't have an account ? <Text style={{color: 'purple', fontWeight:'bold'}}>Signup</Text>
           </Text>
         </Pressable>
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-    height: 48,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    marginBottom: 25
-  }
-})
