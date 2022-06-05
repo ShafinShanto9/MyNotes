@@ -18,6 +18,10 @@ export default function Signup({ navigation }) {
         <InputField placeholder='Full Name'/>
         <InputField placeholder='Enter Your Age' />
 
+        <View style={{marginBottom: 15}}>
+          <Text>Select Gender</Text>
+        </View>
+
         {
           genderOptions.map((option) => {
             const selected = option === gender
