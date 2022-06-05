@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Pressable } from 'react-native/';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 
+const genderOptions= ["Male", "Female"]
+
 export default function Signup({ navigation }) {
-  const selected = true
+  const [gender,setGender] = useState(null)
   return (
     <SafeAreaView style={{marginTop:Platform.OS === 'android' ? StatusBar.currentHeight:0, padding:10, flex:1}}>
       
@@ -15,20 +17,20 @@ export default function Signup({ navigation }) {
         <InputField placeholder='Password'secureTextEntry/>
         <InputField placeholder='Full Name'/>
         <InputField placeholder='Enter Your Age' />
-        
-        <Pressable style={styles.radioContainer}>
-          <View style={[styles.outterCircle, selected && styles.selectedOuterCircle ]}>
-            <View style={[styles.innerCircle, selected && styles.selectedInnerCircle ]}></View>
-          </View>
-          <Text style={styles.radioText}>Male</Text>
-        </Pressable>
 
-        <Pressable style={styles.radioContainer}>
-          <View style={styles.outterCircle}>
-            <View style={styles.innerCircle}></View>
-          </View>
-          <Text style={styles.radioText}>Female</Text>
-        </Pressable>
+        {
+          genderOptions.map((option) => {
+            const selected = option === gender
+            return (
+              <Pressable onPress={() => setGender(option)} key={option} style={styles.radioContainer}>
+              <View style={[styles.outterCircle, selected && styles.selectedOuterCircle]}>
+                <View style={[styles.innerCircle, selected && styles.selectedInnerCircle]}></View>
+              </View>
+              <Text style={styles.radioText}>{option}</Text>
+            </Pressable>
+            )
+          })
+        }
 
         <Button title={"sign up"} customStyles={{alignSelf:'center', marginTop:30 }}/>
       </View>
