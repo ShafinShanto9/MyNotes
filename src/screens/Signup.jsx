@@ -1,22 +1,46 @@
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import React, { useState } from 'react';
 import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Pressable } from 'react-native/';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 
+const auth = getAuth()
+
 const genderOptions= ["Male", "Female"]
 
 export default function Signup({ navigation }) {
+
   const [gender,setGender] = useState(null)
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const [name,setName] = useState("")
+  const [age, setAge] = useState("")
+
+  const signup = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user)
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  }
+  
   return (
     <SafeAreaView style={{marginTop:Platform.OS === 'android' ? StatusBar.currentHeight:0, padding:10, flex:1}}>
       
       <View style={{ paddingHorizontal: 16, paddingVertical: 25 }}>
         
-        <InputField placeholder='Email Address'/>
-        <InputField placeholder='Password'secureTextEntry/>
-        <InputField placeholder='Full Name'/>
-        <InputField placeholder='Enter Your Age' />
+        <InputField placeholder='Email Address' onChangeText={(text)=>setEmail(text)}/>
+        <InputField placeholder='Password' secureTextEntry onChangeText={(text)=>setPassword(text)}/>
+        <InputField placeholder='Full Name' onChangeText={(text)=>setName(text)}/>
+        <InputField placeholder='Enter Your Age' onChangeText={(text)=>setAge(text)} />
 
         <View style={{marginBottom: 15}}>
           <Text>Select Gender</Text>
@@ -36,7 +60,7 @@ export default function Signup({ navigation }) {
           })
         }
 
-        <Button title={"sign up"} customStyles={{alignSelf:'center', marginTop:30 }}/>
+        <Button onPress={signup} title={"sign up"} customStyles={{alignSelf:'center', marginTop:30 }}/>
       </View>
 
       <View style={{flex:1,justifyContent:'flex-end',alignItems:'center' }}>
