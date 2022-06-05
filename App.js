@@ -1,11 +1,25 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { initializeApp } from "firebase/app";
 import { StyleSheet } from 'react-native';
 import Create from './src/screens/Create';
 import Edit from './src/screens/Edit';
 import Home from './src/screens/Home';
 import Signin from './src/screens/Signin';
 import Signup from './src/screens/Signup';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC0LYGYN_lWkvVtMGmQqq7JvjiEKVIzk3A",
+  authDomain: "my-notes-6ac43.firebaseapp.com",
+  projectId: "my-notes-6ac43",
+  storageBucket: "my-notes-6ac43.appspot.com",
+  messagingSenderId: "1010268027703",
+  appId: "1:1010268027703:web:c072334efc7414fa09f8b2"
+};
+
+const app = initializeApp(firebaseConfig);
+
 
 const AppTheme = {
   ...DefaultTheme,
